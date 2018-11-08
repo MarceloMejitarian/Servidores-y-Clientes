@@ -1,0 +1,27 @@
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import os
+
+class A(BaseHTTPRequestHandler):
+    def do_GET(self):
+        Dir = 'c:/upsa/Prueba/'
+        try:
+            if self.path.endswith('.html'):
+                F = open(Dir + self.path)
+                self.send_response(200)
+                self.send_header('Tipo de contenido', 'text - html')
+                self.end_headers()
+                self.wfile.write(F.read().encode())
+                F.close()
+                return
+        except IOError:
+            self.send_error(404, 'No se encuentra el archivo')
+    
+def run():
+    print('Servidor HTTP esta ingresando')
+    SweetMokou = ('192.168.0.100', 8085)
+    httpd = HTTPServer(SweetMokou, A)
+    print('Servidor HTTP esta listo')
+    httpd.serve_forever()
+
+if __name__ == '__main__':
+    run()
