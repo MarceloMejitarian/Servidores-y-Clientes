@@ -1,0 +1,18 @@
+from smtplib import SMTP
+
+Sender = 'Sariel@Makai.com'
+Reciever = 'Reimu@Hakurei.com'
+message = '''De: Sariel
+    Para: Reimu@Hakurei
+    
+    Tema: Ded
+    
+    Hola prueba.
+    '''
+try:
+    Client = SMTP('192.168.0.100', 25)
+    Client.sendmail(Sender, Reciever, message)
+    print('SUCESO')
+    
+except SMTPExeception:
+    print('No se llego al destino')
