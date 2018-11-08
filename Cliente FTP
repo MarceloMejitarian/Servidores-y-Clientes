@@ -1,0 +1,20 @@
+import ftplib
+import os
+import time
+
+def Upload(Client, RemoteFile, duration):
+    while True:
+        if time.time < duration:
+            ext = os.path.splitext(RemoteFile)[1]
+            if ext in ('.txt'):
+                Client.storlines('STOR' + RemoteFile, open(RemoteFile))
+            else:
+                Client.storbinary('STOR' + RemoteFile, open(RemoteFile, 'rb'), 2001)
+        else:
+            break;
+d =int(input('Cuanto: '))
+duration = time.time() + d
+Client = ftplib.FTP('')
+Client.connect('localhost', 2001)
+Client.login(user='Shiki', passwd='aaa')
+Upload(Client, Client.cwd('Prueba'), duration)
