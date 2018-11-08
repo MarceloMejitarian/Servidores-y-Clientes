@@ -1,0 +1,27 @@
+import http.client
+import sys
+import time
+
+Server = sys.argv[1]
+connection = http.client.HTTPConnection(Server,8081)
+Time = int(input('Cuanto tiempo: '))
+Duration = Time + time.time() 
+
+while 1:
+    cmd = input('Introducir comando: ')
+    cmd = cmd.split()
+    
+    if cmd[0] == 'exit':
+        break
+    while True:
+        if time.time() >= Duration:
+            break
+        else:
+            pass
+        connection.request(cmd[0], cmd[1])
+        response = connection.getresponse()
+        print(response.status, response.reason)
+        DataReceived = response.read()
+        print(DataReceived)
+    
+connection.close()
